@@ -1,0 +1,1499 @@
+---
+title: "LLM-Expert Causal Abstraction Agreement/Disagreement"
+author: "Sean McWeeny"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+rm(list = ls())
+library(tidyverse)
+library(igraph)
+library(jsonlite)
+library(visNetwork)
+
+source("../code/cleaning_functions.R")
+```
+
+# Belmonte
+
+```{r load-belmonte}
+temp <- load.graphs(theory = "Belmonte")
+invisible(list2env(temp, envir = .GlobalEnv))
+
+
+
+j.s.list <- compare.pair(g1 = j.clean, g2 = s.clean, g1.name = "j", g2.name = "s")
+gemini.j.list <- compare.pair(g1 = gemini.clean, g2 = j.clean, g1.name = "gemini", g2.name = "j")
+gpt.j.list <- compare.pair(g1 = gpt.clean, g2 = j.clean, g1.name = "gpt", g2.name = "j")
+gemini.s.list <- compare.pair(g1 = gemini.clean, g2 = s.clean, g1.name = "gemini", g2.name = "s")
+gpt.s.list <- compare.pair(g1 = gpt.clean, g2 = s.clean, g1.name = "gpt", g2.name = "s")
+gpt.gemini.list <- compare.pair(g1 = gpt.clean, g2 = gemini.clean, g1.name = "gpt", g2.name = "gemini")
+
+invisible(list2env(j.s.list, envir = .GlobalEnv))
+invisible(list2env(gemini.j.list, envir = .GlobalEnv))
+invisible(list2env(gemini.s.list, envir = .GlobalEnv))
+invisible(list2env(gpt.j.list, envir = .GlobalEnv))
+invisible(list2env(gpt.s.list, envir = .GlobalEnv))
+invisible(list2env(gpt.gemini.list, envir = .GlobalEnv))
+
+```
+
+## TE1-TE2: Belmonte
+
+```{r}
+cmp <- cmp.j.s
+mcs <- mcs.j.s
+
+report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in J (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Belmonte
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r belmonte-max-subgraph-plot-j-s}
+g <- j.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Belmonte
+
+```{r latent-projection-belmonte-j-s}
+g <- j.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+## LLM vs. Human Agreement
+
+## Gemini vs. J: Belmonte
+
+```{r belmonte-max-consistent-subgraph-gemini-j, include=TRUE}
+cmp <- cmp.gemini.j
+mcs <- mcs.gemini.j
+
+report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in J (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Belmonte
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r belmonte-max-subgraph-plot-gemini-j}
+g <- gemini.j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Belmonte
+
+```{r latent-projection-belmonte-gemini-j}
+g <- gemini.j.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+## Gemini vs. S: Belmonte
+
+```{r belmonte-max-consistent-subgraph-gemini-s, include=TRUE}
+cmp <- cmp.gemini.s
+mcs <- mcs.gemini.s
+
+report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Belmonte
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r belmonte-max-subgraph-plot-gemini-s}
+g <- gemini.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Belmonte
+
+```{r latent-projection-belmonte-gemini-s}
+g <- gemini.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+## GPT vs. J: Belmonte
+
+```{r belmonte-max-consistent-subgraph-gpt-j, include=TRUE}
+cmp <- cmp.gpt.j
+mcs <- mcs.gpt.j
+
+report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in GPT:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in GPT (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in J (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Belmonte
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r belmonte-max-subgraph-plot-gpt-j}
+g <- gpt.j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Belmonte
+
+```{r latent-projection-belmonte-gpt-j}
+g <- gpt.j.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+## GPT vs. S: Belmonte
+
+```{r belmonte-max-consistent-subgraph-gpt-s, include=TRUE}
+cmp <- cmp.gpt.s
+mcs <- mcs.gpt.s
+
+report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Belmonte
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r belmonte-max-subgraph-plot-gpt-s}
+g <- gpt.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Belmonte
+
+```{r latent-projection-belmonte-gpt-s}
+g <- gpt.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+## Gemini vs. GPT: Belmonte 
+
+```{r}
+cmp <- cmp.gpt.gemini
+mcs <- mcs.gpt.gemini
+
+report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+
+#### Nodes only present in GPT:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in GPT (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in Gemini (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Belmonte
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r belmonte-max-subgraph-plot-gpt-gemini}
+g <- gpt.gemini.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Belmonte
+
+```{r latent-projection-belmonte-gpt-gemini}
+g <- gpt.gemini.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+
+
+
+
+```{r}
+report.table.belmonte <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini)
+
+knitr::kable(report.table.belmonte)
+
+```
+
+
+# Baron-Cohen
+
+
+```{r read-baron-cohen}
+temp <- load.graphs(theory = "BaronCohen")
+invisible(list2env(temp, envir = .GlobalEnv))
+
+j.s.list <- compare.pair(g1 = j.clean, g2 = s.clean, g1.name = "j", g2.name = "s")
+gemini.j.list <- compare.pair(g1 = gemini.clean, g2 = j.clean, g1.name = "gemini", g2.name = "j")
+gpt.j.list <- compare.pair(g1 = gpt.clean, g2 = j.clean, g1.name = "gpt", g2.name = "j")
+gemini.s.list <- compare.pair(g1 = gemini.clean, g2 = s.clean, g1.name = "gemini", g2.name = "s")
+gpt.s.list <- compare.pair(g1 = gpt.clean, g2 = s.clean, g1.name = "gpt", g2.name = "s")
+gpt.gemini.list <- compare.pair(g1 = gpt.clean, g2 = gemini.clean, g1.name = "gpt", g2.name = "gemini")
+
+invisible(list2env(j.s.list, envir = .GlobalEnv))
+invisible(list2env(gemini.j.list, envir = .GlobalEnv))
+invisible(list2env(gemini.s.list, envir = .GlobalEnv))
+invisible(list2env(gpt.j.list, envir = .GlobalEnv))
+invisible(list2env(gpt.s.list, envir = .GlobalEnv))
+invisible(list2env(gpt.gemini.list, envir = .GlobalEnv))
+
+
+```
+
+## TE1-TE2: Baron-Cohen
+
+```{r}
+cmp <- cmp.j.s
+mcs <- mcs.j.s
+
+report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in J (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Baron-Cohen
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Baron-Cohen-max-subgraph-plot-j-s}
+g <- j.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Baron-Cohen
+
+```{r latent-projection-Baron-Cohen-j-s}
+g <- j.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+## LLM vs. Human Agreement
+
+## Gemini vs. J: Baron-Cohen
+
+```{r Baron-Cohen-max-consistent-subgraph-gemini-j, include=TRUE}
+cmp <- cmp.gemini.j
+mcs <- mcs.gemini.j
+
+report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in J (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Baron-Cohen
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Baron-Cohen-max-subgraph-plot-gemini-j}
+g <- gemini.j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Baron-Cohen
+
+```{r latent-projection-Baron-Cohen-gemini-j}
+g <- gemini.j.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+## Gemini vs. S: Baron-Cohen
+
+```{r Baron-Cohen-max-consistent-subgraph-gemini-s, include=TRUE}
+cmp <- cmp.gemini.s
+mcs <- mcs.gemini.s
+
+report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Baron-Cohen
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Baron-Cohen-max-subgraph-plot-gemini-s}
+g <- gemini.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Baron-Cohen
+
+```{r latent-projection-Baron-Cohen-gemini-s}
+g <- gemini.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+## GPT vs. J: Baron-Cohen
+
+```{r Baron-Cohen-max-consistent-subgraph-gpt-j, include=TRUE}
+cmp <- cmp.gpt.j
+mcs <- mcs.gpt.j
+
+report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in GPT:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in GPT (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in J (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Baron-Cohen
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Baron-Cohen-max-subgraph-plot-gpt-j}
+g <- gpt.j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Baron-Cohen
+
+```{r latent-projection-Baron-Cohen-gpt-j}
+g <- gpt.j.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+## GPT vs. S: Baron-Cohen
+
+```{r Baron-Cohen-max-consistent-subgraph-gpt-s, include=TRUE}
+cmp <- cmp.gpt.s
+mcs <- mcs.gpt.s
+
+report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Baron-Cohen
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Baron-Cohen-max-subgraph-plot-gpt-s}
+g <- gpt.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Baron-Cohen
+
+```{r latent-projection-Baron-Cohen-gpt-s}
+g <- gpt.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+## Gemini vs. GPT: Baron-Cohen 
+
+```{r}
+cmp <- cmp.gpt.gemini
+mcs <- mcs.gpt.gemini
+
+report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+
+#### Nodes only present in GPT:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in GPT (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in Gemini (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Baron-Cohen
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Baron-Cohen-max-subgraph-plot-gpt-gemini}
+g <- gpt.gemini.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Baron-Cohen
+
+```{r latent-projection-Baron-Cohen-gpt-gemini}
+g <- gpt.gemini.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+```{r}
+report.table.baron.cohen <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini)
+
+knitr::kable(report.table.baron.cohen)
+
+```
+
+
+
+# Gepner
+
+
+```{r read-Gepner}
+temp <- load.graphs(theory = "Gepner")
+invisible(list2env(temp, envir = .GlobalEnv))
+
+
+j.s.list <- compare.pair(g1 = j.clean, g2 = s.clean, g1.name = "j", g2.name = "s")
+gemini.j.list <- compare.pair(g1 = gemini.clean, g2 = j.clean, g1.name = "gemini", g2.name = "j")
+gpt.j.list <- compare.pair(g1 = gpt.clean, g2 = j.clean, g1.name = "gpt", g2.name = "j")
+gemini.s.list <- compare.pair(g1 = gemini.clean, g2 = s.clean, g1.name = "gemini", g2.name = "s")
+gpt.s.list <- compare.pair(g1 = gpt.clean, g2 = s.clean, g1.name = "gpt", g2.name = "s")
+gpt.gemini.list <- compare.pair(g1 = gpt.clean, g2 = gemini.clean, g1.name = "gpt", g2.name = "gemini")
+
+invisible(list2env(j.s.list, envir = .GlobalEnv))
+invisible(list2env(gemini.j.list, envir = .GlobalEnv))
+invisible(list2env(gemini.s.list, envir = .GlobalEnv))
+invisible(list2env(gpt.j.list, envir = .GlobalEnv))
+invisible(list2env(gpt.s.list, envir = .GlobalEnv))
+invisible(list2env(gpt.gemini.list, envir = .GlobalEnv))
+
+
+```
+
+## TE1-TE2: Gepner
+
+```{r}
+cmp <- cmp.j.s
+mcs <- mcs.j.s
+
+report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in J (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Gepner
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Gepner-max-subgraph-plot-j-s}
+g <- j.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Gepner
+
+```{r latent-projection-Gepner-j-s}
+g <- j.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+## LLM vs. Human Agreement
+
+## Gemini vs. J: Gepner
+
+```{r Gepner-max-consistent-subgraph-gemini-j, include=TRUE}
+cmp <- cmp.gemini.j
+mcs <- mcs.gemini.j
+
+report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in J (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Gepner
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Gepner-max-subgraph-plot-gemini-j}
+g <- gemini.j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Gepner
+
+```{r latent-projection-Gepner-gemini-j}
+g <- gemini.j.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+## Gemini vs. S: Gepner
+
+```{r Gepner-max-consistent-subgraph-gemini-s, include=TRUE}
+cmp <- cmp.gemini.s
+mcs <- mcs.gemini.s
+
+report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Gepner
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Gepner-max-subgraph-plot-gemini-s}
+g <- gemini.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Gepner
+
+```{r latent-projection-Gepner-gemini-s}
+g <- gemini.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+## GPT vs. J: Gepner
+
+```{r Gepner-max-consistent-subgraph-gpt-j, include=TRUE}
+cmp <- cmp.gpt.j
+mcs <- mcs.gpt.j
+
+report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in GPT:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in J:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in GPT (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in J (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Gepner
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Gepner-max-subgraph-plot-gpt-j}
+g <- gpt.j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Gepner
+
+```{r latent-projection-Gepner-gpt-j}
+g <- gpt.j.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+## GPT vs. S: Gepner
+
+```{r Gepner-max-consistent-subgraph-gpt-s, include=TRUE}
+cmp <- cmp.gpt.s
+mcs <- mcs.gpt.s
+
+report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in S:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in Gemini (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in S (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Gepner
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Gepner-max-subgraph-plot-gpt-s}
+g <- gpt.s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Gepner
+
+```{r latent-projection-Gepner-gpt-s}
+g <- gpt.s.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+## Gemini vs. GPT: Gepner 
+
+```{r}
+cmp <- cmp.gpt.gemini
+mcs <- mcs.gpt.gemini
+
+report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+```
+
+
+#### Nodes only present in GPT:
+
+```{r}
+print(cmp$unique_nodes1)
+```
+#### Nodes only present in Gemini:
+
+```{r}
+print(cmp$unique_nodes2)
+```
+
+#### Paths only present in GPT (after dropping unique nodes):
+
+```{r}
+print(cmp$only1)
+```
+#### Paths only present in Gemini (after dropping unique nodes):
+```{r}
+print(cmp$only2)
+```
+#### Nodes removed to reach 100% agreement: 
+```{r}
+print(mcs$removed)
+```
+
+### Maximum Consistent Subgraph Gepner
+
+Find the largest subset of shared nodes such that the induced ancestral relations (i.e., transitive closure) agree perfectly.
+
+
+```{r Gepner-max-subgraph-plot-gpt-gemini}
+g <- gpt.gemini.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges")# %>% 
+#  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to", width = .01)
+
+
+```
+
+### Latent Projection (Strict): Gepner
+
+```{r latent-projection-Gepner-gpt-gemini}
+g <- gpt.gemini.strict.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") #%>% 
+  #drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+
+
+```{r}
+report.table.gepner <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini)
+
+knitr::kable(report.table.gepner)
+
+```
+
+## The Grand Conclusion
+
+```{r}
+report.table.belmonte$theory = "Belmonte"
+report.table.gepner$theory = "Gepner"
+report.table.baron.cohen$theory = "Baron-Cohen"
+
+report.table.summary <- bind_rows(report.table.belmonte, report.table.baron.cohen, report.table.gepner)
+
+DT::datatable(report.table.summary %>% group_by(Coder1, Coder2) %>% summarize(Jaccard_Nodes = round(mean(as.numeric(Jaccard_Nodes)),3), 
+                                                                             Jaccard_Edges_Raw = round(mean(as.numeric(Jaccard_Edges_Raw)),3),
+                                                                             Jaccard_Edges_Closure = round(mean(as.numeric(Jaccard_Edges_Closure)),3)))
+
+
+```
