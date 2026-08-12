@@ -116,7 +116,8 @@ load.graphs <- function(theory, node_mapping = "consensus"){
   return(list(j = j, s = s, gemini = gemini, gpt = gpt,
               j.raw = j.raw, s.raw = s.raw, gemini.raw = gemini.raw, gpt.raw = gpt.raw,
               j.clean = j.clean, s.clean = s.clean, gemini.clean = gemini.clean, gpt.clean = gpt.clean,
-              j.graph = j.graph, s.graph = s.graph, gemini.graph = gemini.graph, gpt.graph = gpt.graph))
+              j.graph = j.graph, s.graph = s.graph, gemini.graph = gemini.graph, gpt.graph = gpt.graph,
+              node_map = node_map))
   
 }
 

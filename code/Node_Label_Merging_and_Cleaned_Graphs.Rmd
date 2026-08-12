@@ -17,56 +17,11 @@ library(visNetwork)
 source("../code/cleaning_functions.R")
 ```
 
-```{r coder, include = TRUE}
-coder <- "consensus"
-
-# when merging, who to merge - just TE1 and TE2 or also LLMs ("all")
-who_clean <- "JS"
-# only take common edges among coders? not great for belmonte, that's for sure
-filter_only_common <- FALSE
-
-if(coder == "JE") {
-  source("../code/Belmonte_node_map_JE.R")
-} else if(coder == "SM"){
-  source("../code/Belmonte_node_equivalence.R")
-} else if(coder == "consensus"){
-  consensus <- read.csv("../abstraction/consensus_Belmonte.csv") %>% filter(!consensus == "")
-  node_map <- consensus$consensus
-  names(node_map) <- consensus$original
-}
-
-
-
-```
-
 # Belmonte
 
 ```{r raw-graph-creation-belmonte, echo = FALSE}
-setwd("C:/Users/smcweeny/OneDrive - Lurie Childrens/LLM/Babak_project/Json")
-s <- fromJSON("./Sean/Belmonte_2004_directed_graph/output.json")
-j <- fromJSON("./Josh/Belmonte/output.json")
-gpt <- fromJSON("./Basic prompt GPT 5.2/belmonte_2004/trimmed.json")
-gemini <- fromJSON("./Basic prompt Gemini3 - fast/belmonte_2004/output.json")
-
-s <- data.frame(from = s[,1], to = s[,3])
-j <- data.frame(from = j[,1], to = j[,3])
-gpt <- data.frame(from = gpt[,1], to = gpt[,3])
-gemini <- data.frame(from = gemini[,1], to = gemini[,3])
-
-s.raw <- graph_from_data_frame(s)
-j.raw <- graph_from_data_frame(j)
-gpt.raw <- graph_from_data_frame(gpt)
-gemini.raw <- graph_from_data_frame(gemini)
-
-s.clean <- s %>% mutate(from = dplyr::recode(from, !!!node_map), to   = dplyr::recode(to, !!!node_map))
-j.clean <- j %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
-gpt.clean <- gpt %>% mutate(from = recode(from, !!!node_map),to   = recode(to, !!!node_map))
-gemini.clean <- gemini %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
-
-s.graph <- graph_from_data_frame(s.clean)
-j.graph <- graph_from_data_frame(j.clean)
-gpt.graph <- graph_from_data_frame(gpt.clean)
-gemini.graph <- graph_from_data_frame(gemini.clean)
+temp <- load.graphs(theory = "Belmonte")
+invisible(list2env(temp, envir = .GlobalEnv))
 
 ```
 
@@ -274,43 +229,9 @@ knitr::kable(freq.table)
 # Baron-Cohen 
 
 ```{r raw-graph-creation-baron-cohen, echo = FALSE}
-setwd("C:/Users/smcweeny/OneDrive - Lurie Childrens/LLM/Babak_project/Json")
-s <- fromJSON("./Sean/BaronCohen_2002_SM_Graph/output.json")
-j <- fromJSON("./Josh/Baron-Cohen/output.json")
-gpt <- fromJSON("./Basic prompt GPT 5.2/Baron-Cohen - 2002 - The extreme male brain theory of autism/basic.json")
-gemini <- fromJSON("./Basic prompt Gemini3 - fast/Baron-Cohen - 2002 - The extreme male brain theory of autism/output.json")
+temp <- load.graphs(theory = "Baron-Cohen")
+invisible(list2env(temp, envir = .GlobalEnv))
 
-s <- data.frame(from = s[,1], to = s[,3])
-j <- data.frame(from = j[,1], to = j[,3])
-gpt <- data.frame(from = gpt[,1], to = gpt[,3])
-gemini <- data.frame(from = gemini[,1], to = gemini[,3])
-
-if(coder == "JE") {
-  source("../code/BaronCohen_node_map_JE.R")
-} else if(coder == "SM"){
-  source("../code/BaronCohen_node_equivalence.R")
-} else if(coder == "consensus"){
-  consensus <- read.csv("../abstraction/consensus_BaronCohen.csv") %>% filter(!consensus == "")
-  node_map <- consensus$consensus
-  names(node_map) <- consensus$original
-
-}
-
-
-s.raw <- graph_from_data_frame(s)
-j.raw <- graph_from_data_frame(j)
-gpt.raw <- graph_from_data_frame(gpt)
-gemini.raw <- graph_from_data_frame(gemini)
-
-s.clean <- s %>% mutate(from = dplyr::recode(from, !!!node_map), to   = dplyr::recode(to, !!!node_map))
-j.clean <- j %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
-gpt.clean <- gpt %>% mutate(from = recode(from, !!!node_map),to   = recode(to, !!!node_map))
-gemini.clean <- gemini %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
-
-s.graph <- graph_from_data_frame(s.clean)
-j.graph <- graph_from_data_frame(j.clean)
-gpt.graph <- graph_from_data_frame(gpt.clean)
-gemini.graph <- graph_from_data_frame(gemini.clean)
 
 ```
 
@@ -506,42 +427,9 @@ knitr::kable(freq.table)
 
 
 ```{r raw-graph-creation-gepner, echo = FALSE}
-setwd("C:/Users/smcweeny/OneDrive - Lurie Childrens/LLM/Babak_project/Json")
+temp <- load.graphs(theory = "Gepner")
+invisible(list2env(temp, envir = .GlobalEnv))
 
-j <- fromJSON("./Josh/Gepner & Feron/output.json")
-s <- fromJSON("./Sean/Gepner_Feron_2009_causal_graph/output.json")
-gemini <- fromJSON("./Basic prompt Gemini3 - fast/Gepner_2009/output.json")
-gpt <- fromJSON("./Basic prompt GPT 5.2/Gepner_2009/basic.json")
-
-s <- data.frame(from = s[,1], to = s[,3])
-j <- data.frame(from = j[,1], to = j[,3])
-gemini <- data.frame(from = gemini[,1], to = gemini[,3])
-gpt <- data.frame(from = gpt[,1], to = gpt[,3])
-
-if(coder == "JE") {
-  source("../code/Gepner_node_map_JE.R")
-} else if(coder == "SM"){
-  source("../code/Gepner_node_equivalence.R")
-} else if(coder == "consensus"){
-    consensus <- read.csv("../abstraction/consensus_Gepner.csv") %>% filter(!consensus == "")
-    node_map <- consensus$consensus
-    names(node_map) <- consensus$original
-}
-
-s.raw <- graph_from_data_frame(s)
-j.raw <- graph_from_data_frame(j)
-gpt.raw <- graph_from_data_frame(gpt)
-gemini.raw <- graph_from_data_frame(gemini)
-
-s.clean <- s %>% mutate(from = dplyr::recode(from, !!!node_map), to   = dplyr::recode(to, !!!node_map))
-j.clean <- j %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
-gpt.clean <- gpt %>% mutate(from = recode(from, !!!node_map),to   = recode(to, !!!node_map))
-gemini.clean <- gemini %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
-
-s.graph <- graph_from_data_frame(s.clean)
-j.graph <- graph_from_data_frame(j.clean)
-gpt.graph <- graph_from_data_frame(gpt.clean)
-gemini.graph <- graph_from_data_frame(gemini.clean)
 
 ```
 
