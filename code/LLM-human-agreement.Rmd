@@ -46,7 +46,7 @@ invisible(list2env(gpt.gemini.list, envir = .GlobalEnv))
 cmp <- cmp.j.s
 mcs <- mcs.j.s
 
-report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -122,7 +122,9 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gemini.j
 mcs <- mcs.gemini.j
 
-report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+
+
 
 ```
 
@@ -198,7 +200,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gemini.s
 mcs <- mcs.gemini.s
 
-report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -273,7 +275,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.j
 mcs <- mcs.gpt.j
 
-report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -349,7 +351,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.s
 mcs <- mcs.gpt.s
 
-report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2),Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -424,7 +426,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.gemini
 mcs <- mcs.gpt.gemini
 
-report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -511,7 +513,7 @@ knitr::kable(report.table.belmonte)
 
 
 ```{r read-baron-cohen}
-temp <- load.graphs(theory = "BaronCohen")
+temp <- load.graphs(theory = "Baron-Cohen")
 invisible(list2env(temp, envir = .GlobalEnv))
 
 j.s.list <- compare.pair(g1 = j.clean, g2 = s.clean, g1.name = "j", g2.name = "s")
@@ -537,7 +539,7 @@ invisible(list2env(gpt.gemini.list, envir = .GlobalEnv))
 cmp <- cmp.j.s
 mcs <- mcs.j.s
 
-report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -613,7 +615,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gemini.j
 mcs <- mcs.gemini.j
 
-report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -689,7 +691,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gemini.s
 mcs <- mcs.gemini.s
 
-report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -764,7 +766,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.j
 mcs <- mcs.gpt.j
 
-report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -840,7 +842,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.s
 mcs <- mcs.gpt.s
 
-report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -915,7 +917,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.gemini
 mcs <- mcs.gpt.gemini
 
-report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -1026,7 +1028,7 @@ invisible(list2env(gpt.gemini.list, envir = .GlobalEnv))
 cmp <- cmp.j.s
 mcs <- mcs.j.s
 
-report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.j.s <- c(Coder1 = "TE1", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -1102,7 +1104,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gemini.j
 mcs <- mcs.gemini.j
 
-report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gemini.j <- c(Coder1 = "Gemini", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -1178,7 +1180,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gemini.s
 mcs <- mcs.gemini.s
 
-report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gemini.s <- c(Coder1 = "Gemini", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -1253,7 +1255,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.j
 mcs <- mcs.gpt.j
 
-report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.j <- c(Coder1 = "GPT", Coder2 = "TE1", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -1329,7 +1331,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.s
 mcs <- mcs.gpt.s
 
-report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.s <- c(Coder1 = "GPT", Coder2 = "TE2", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
@@ -1404,7 +1406,7 @@ visNetwork(nodes, edges) %>%
 cmp <- cmp.gpt.gemini
 mcs <- mcs.gpt.gemini
 
-report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
+report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
 ```
 
