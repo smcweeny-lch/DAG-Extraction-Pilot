@@ -1,0 +1,729 @@
+---
+title: "Node Label Equivalence and Merging: Individual Graphs"
+author: "Sean McWeeny"
+date: "`r Sys.Date()`"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+library(tidyverse)
+library(igraph)
+library(jsonlite)
+library(visNetwork)
+
+source("../code/cleaning_functions.R")
+```
+
+```{r coder, include = TRUE}
+coder <- "consensus"
+
+# when merging, who to merge - just TE1 and TE2 or also LLMs ("all")
+who_clean <- "JS"
+# only take common edges among coders? not great for belmonte, that's for sure
+filter_only_common <- FALSE
+
+if(coder == "JE") {
+  source("../code/Belmonte_node_map_JE.R")
+} else if(coder == "SM"){
+  source("../code/Belmonte_node_equivalence.R")
+} else if(coder == "consensus"){
+  consensus <- read.csv("../abstraction/consensus_Belmonte.csv") %>% filter(!consensus == "")
+  node_map <- consensus$consensus
+  names(node_map) <- consensus$original
+}
+
+
+
+```
+
+# Belmonte
+
+```{r raw-graph-creation-belmonte, echo = FALSE}
+setwd("C:/Users/smcweeny/OneDrive - Lurie Childrens/LLM/Babak_project/Json")
+s <- fromJSON("./Sean/Belmonte_2004_directed_graph/output.json")
+j <- fromJSON("./Josh/Belmonte/output.json")
+gpt <- fromJSON("./Basic prompt GPT 5.2/belmonte_2004/trimmed.json")
+gemini <- fromJSON("./Basic prompt Gemini3 - fast/belmonte_2004/output.json")
+
+s <- data.frame(from = s[,1], to = s[,3])
+j <- data.frame(from = j[,1], to = j[,3])
+gpt <- data.frame(from = gpt[,1], to = gpt[,3])
+gemini <- data.frame(from = gemini[,1], to = gemini[,3])
+
+s.raw <- graph_from_data_frame(s)
+j.raw <- graph_from_data_frame(j)
+gpt.raw <- graph_from_data_frame(gpt)
+gemini.raw <- graph_from_data_frame(gemini)
+
+s.clean <- s %>% mutate(from = dplyr::recode(from, !!!node_map), to   = dplyr::recode(to, !!!node_map))
+j.clean <- j %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
+gpt.clean <- gpt %>% mutate(from = recode(from, !!!node_map),to   = recode(to, !!!node_map))
+gemini.clean <- gemini %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
+
+s.graph <- graph_from_data_frame(s.clean)
+j.graph <- graph_from_data_frame(j.clean)
+gpt.graph <- graph_from_data_frame(gpt.clean)
+gemini.graph <- graph_from_data_frame(gemini.clean)
+
+```
+
+### Node Mappings for Belmonte
+
+```{r node-map-belmonte, echo = F}
+
+knitr::kable((data.frame(umbrella_name = unname(node_map), original_name = names(node_map))))
+
+```
+
+
+
+### S Raw Graph
+
+```{r plot.s.raw.belmonte, echo = F}
+g <- s.raw
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+```{r is.dag.s.raw.belmonte}
+is_dag(g)
+feedback_arc_set(g)
+```
+
+
+
+### S Clean Graph
+
+
+```{r plot.s.clean.belmonte, echo = F}
+g <- s.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+```{r is.dag.s.clean.belmonte}
+is_dag(g)
+feedback_arc_set(g)
+```
+
+
+
+
+### J Raw Graph 
+
+```{r plot.j.raw.belmonte, echo = F}
+g <- j.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+
+### J Clean Graph
+
+```{r plot.j.clean.belmonte, echo = F}
+g <- j.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+### GPT Raw Graph
+
+```{r plot.gpt.raw.belmonte, echo = F}
+g <- gpt.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+### GPT Clean Graph
+
+
+```{r plot.gpt.clean.belmonte, echo = F}
+g <- gpt.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+### Gemini Raw Graph 
+
+```{r plot.gemini.raw.belmonte, echo = F}
+g <- gemini.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+
+### Gemini Clean Graph
+
+```{r plot.gemini.clean.belmonte, echo = F}
+g <- gemini.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+is_dag(g)
+feedback_arc_set(g)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+### Node Frequency Table
+
+```{r node-freq-belmonte, echo = F}
+s.nodes <- data.frame(node = unique(c(s.clean$to, s.clean$from)), graph = "s")
+j.nodes <- data.frame(node = unique(c(j.clean$to, j.clean$from)), graph = "j")
+gpt.nodes <- data.frame(node = unique(c(gpt.clean$to, gpt.clean$from)), graph = "gpt")
+gemini.nodes <- data.frame(node = unique(c(gemini.clean$to, gemini.clean$from)), graph = "gemini")
+
+combined.nodes <- s.nodes %>% bind_rows(j.nodes, gemini.nodes, gpt.nodes)
+
+
+freq.table <- combined.nodes %>%
+  mutate(value = 1) %>%
+  pivot_wider(
+    names_from = graph,
+    values_from = value,
+    values_fill = 0
+  ) %>% 
+  mutate(total = rowSums(across(s:gpt))) %>% 
+  arrange(desc(total))
+
+
+knitr::kable(freq.table)
+```
+
+# Baron-Cohen 
+
+```{r raw-graph-creation-baron-cohen, echo = FALSE}
+setwd("C:/Users/smcweeny/OneDrive - Lurie Childrens/LLM/Babak_project/Json")
+s <- fromJSON("./Sean/BaronCohen_2002_SM_Graph/output.json")
+j <- fromJSON("./Josh/Baron-Cohen/output.json")
+gpt <- fromJSON("./Basic prompt GPT 5.2/Baron-Cohen - 2002 - The extreme male brain theory of autism/basic.json")
+gemini <- fromJSON("./Basic prompt Gemini3 - fast/Baron-Cohen - 2002 - The extreme male brain theory of autism/output.json")
+
+s <- data.frame(from = s[,1], to = s[,3])
+j <- data.frame(from = j[,1], to = j[,3])
+gpt <- data.frame(from = gpt[,1], to = gpt[,3])
+gemini <- data.frame(from = gemini[,1], to = gemini[,3])
+
+if(coder == "JE") {
+  source("../code/BaronCohen_node_map_JE.R")
+} else if(coder == "SM"){
+  source("../code/BaronCohen_node_equivalence.R")
+} else if(coder == "consensus"){
+  consensus <- read.csv("../abstraction/consensus_BaronCohen.csv") %>% filter(!consensus == "")
+  node_map <- consensus$consensus
+  names(node_map) <- consensus$original
+
+}
+
+
+s.raw <- graph_from_data_frame(s)
+j.raw <- graph_from_data_frame(j)
+gpt.raw <- graph_from_data_frame(gpt)
+gemini.raw <- graph_from_data_frame(gemini)
+
+s.clean <- s %>% mutate(from = dplyr::recode(from, !!!node_map), to   = dplyr::recode(to, !!!node_map))
+j.clean <- j %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
+gpt.clean <- gpt %>% mutate(from = recode(from, !!!node_map),to   = recode(to, !!!node_map))
+gemini.clean <- gemini %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
+
+s.graph <- graph_from_data_frame(s.clean)
+j.graph <- graph_from_data_frame(j.clean)
+gpt.graph <- graph_from_data_frame(gpt.clean)
+gemini.graph <- graph_from_data_frame(gemini.clean)
+
+```
+
+## Node Mappings for Baron-Cohen
+
+```{r node-map-baron-cohen, echo = F}
+
+knitr::kable((data.frame(umbrella_name = unname(node_map), original_name = names(node_map))))
+
+```
+
+
+
+### S Raw Graph
+
+```{r plot.s.raw.baron-cohen, echo = F}
+g <- s.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+### S Clean Graph
+
+
+```{r plot.s.clean.baron-cohen, echo = F}
+g <- s.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+is_dag(g)
+feedback_arc_set(g)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+### J Raw Graph 
+
+```{r plot.j.raw.baron-cohen, echo = F}
+g <- j.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+
+### J Clean Graph
+
+```{r plot.j.clean.baron-cohen, echo = F}
+g <- j.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+is_dag(g)
+feedback_arc_set(g)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+### GPT Raw Graph
+
+```{r plot.gpt.raw.baron-cohen, echo = F}
+g <- gpt.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+### GPT Clean Graph
+
+
+```{r plot.gpt.clean.baron-cohen, echo = F}
+g <- gpt.graph
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+is_dag(g)
+feedback_arc_set(g)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+### Gemini Raw Graph 
+
+```{r plot.gemini.raw.baron-cohen, echo = F}
+g <- gemini.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+
+### Gemini Clean Graph
+
+```{r plot.gemini.clean.baron-cohen, echo = F}
+g <- gemini.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+### Node Frequency Table
+
+```{r node-freq-baron-cohen, echo = F}
+s.nodes <- data.frame(node = unique(c(s.clean$to, s.clean$from)), graph = "s")
+j.nodes <- data.frame(node = unique(c(j.clean$to, j.clean$from)), graph = "j")
+gpt.nodes <- data.frame(node = unique(c(gpt.clean$to, gpt.clean$from)), graph = "gpt")
+gemini.nodes <- data.frame(node = unique(c(gemini.clean$to, gemini.clean$from)), graph = "gemini")
+
+combined.nodes <- s.nodes %>% bind_rows(j.nodes, gemini.nodes, gpt.nodes)
+
+
+freq.table <- combined.nodes %>%
+  mutate(value = 1) %>%
+  pivot_wider(
+    names_from = graph,
+    values_from = value,
+    values_fill = 0
+  ) %>% 
+  mutate(total = rowSums(across(s:gpt))) %>% 
+  arrange(desc(total))
+
+
+knitr::kable(freq.table)
+```
+
+
+
+
+# Gepner & Feron, 2009 
+
+
+
+```{r raw-graph-creation-gepner, echo = FALSE}
+setwd("C:/Users/smcweeny/OneDrive - Lurie Childrens/LLM/Babak_project/Json")
+
+j <- fromJSON("./Josh/Gepner & Feron/output.json")
+s <- fromJSON("./Sean/Gepner_Feron_2009_causal_graph/output.json")
+gemini <- fromJSON("./Basic prompt Gemini3 - fast/Gepner_2009/output.json")
+gpt <- fromJSON("./Basic prompt GPT 5.2/Gepner_2009/basic.json")
+
+s <- data.frame(from = s[,1], to = s[,3])
+j <- data.frame(from = j[,1], to = j[,3])
+gemini <- data.frame(from = gemini[,1], to = gemini[,3])
+gpt <- data.frame(from = gpt[,1], to = gpt[,3])
+
+if(coder == "JE") {
+  source("../code/Gepner_node_map_JE.R")
+} else if(coder == "SM"){
+  source("../code/Gepner_node_equivalence.R")
+} else if(coder == "consensus"){
+    consensus <- read.csv("../abstraction/consensus_Gepner.csv") %>% filter(!consensus == "")
+    node_map <- consensus$consensus
+    names(node_map) <- consensus$original
+}
+
+s.raw <- graph_from_data_frame(s)
+j.raw <- graph_from_data_frame(j)
+gpt.raw <- graph_from_data_frame(gpt)
+gemini.raw <- graph_from_data_frame(gemini)
+
+s.clean <- s %>% mutate(from = dplyr::recode(from, !!!node_map), to   = dplyr::recode(to, !!!node_map))
+j.clean <- j %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
+gpt.clean <- gpt %>% mutate(from = recode(from, !!!node_map),to   = recode(to, !!!node_map))
+gemini.clean <- gemini %>% mutate(from = recode(from, !!!node_map), to   = recode(to, !!!node_map))
+
+s.graph <- graph_from_data_frame(s.clean)
+j.graph <- graph_from_data_frame(j.clean)
+gpt.graph <- graph_from_data_frame(gpt.clean)
+gemini.graph <- graph_from_data_frame(gemini.clean)
+
+```
+
+## Node Mappings for Gepner & Feron
+
+```{r node-map-gepner, echo = F}
+knitr::kable((data.frame(original_name = unname(node_map), umbrella_name = names(node_map))))
+```
+
+
+
+### S Raw Graph
+
+```{r plot.s.raw.gepner, echo = F}
+g <- s.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+### S Clean Graph
+
+
+```{r plot.s.clean.gepner, echo = F}
+g <- s.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+### J Raw Graph 
+
+```{r plot.j.raw.gepner, echo = F}
+g <- j.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+
+### J Clean Graph
+
+```{r plot.j.clean.gepner, echo = F}
+g <- j.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+### GPT Raw Graph
+
+```{r plot.gpt.raw.gepner, echo = F}
+g <- gpt.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+### GPT Clean Graph
+
+
+```{r plot.gpt.clean.gepner, echo = F}
+g <- gpt.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+### Gemini Raw Graph 
+
+```{r plot.gemini.raw.gepner, echo = F}
+g <- gemini.raw
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+
+```
+
+
+### Gemini Clean Graph
+
+```{r plot.gemini.clean.gepner, echo = F}
+g <- gemini.graph
+
+is_dag(g)
+feedback_arc_set(g)
+
+nodes <- data.frame(id = V(g)$name, label = V(g)$name)
+
+edges <- as_data_frame(g, what = "edges") %>% 
+  drop_cycles_for_visnetwork() 
+
+visNetwork(nodes, edges) %>%
+  visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%  # left-to-right DAG
+  visInteraction(navigationButtons = TRUE) %>% 
+  visEdges(arrows = "to")
+```
+
+
+
+### Node Frequency Table
+
+```{r node-freq-gepner, echo = F}
+s.nodes <- data.frame(node = unique(c(s.clean$to, s.clean$from)), graph = "s")
+j.nodes <- data.frame(node = unique(c(j.clean$to, j.clean$from)), graph = "j")
+gpt.nodes <- data.frame(node = unique(c(gpt.clean$to, gpt.clean$from)), graph = "gpt")
+gemini.nodes <- data.frame(node = unique(c(gemini.clean$to, gemini.clean$from)), graph = "gemini")
+
+combined.nodes <- s.nodes %>% bind_rows(j.nodes, gemini.nodes, gpt.nodes)
+
+
+freq.table <- combined.nodes %>%
+  mutate(value = 1) %>%
+  pivot_wider(
+    names_from = graph,
+    values_from = value,
+    values_fill = 0
+  ) %>% 
+  mutate(total = rowSums(across(s:gpt))) %>% 
+  arrange(desc(total))
+
+
+knitr::kable(freq.table)
+```
+
