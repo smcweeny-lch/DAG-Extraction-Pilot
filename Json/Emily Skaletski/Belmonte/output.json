@@ -1,0 +1,37 @@
+[
+  [
+    "Genes",
+    "-->",
+    "Signaling proteins"
+  ],
+  [
+    "Signaling proteins",
+    "-->",
+    "Autism"
+  ],
+  [
+    "GABA",
+    "-->",
+    "Autism"
+  ],
+  [
+    "Acetylcholine",
+    "-->",
+    "Autism"
+  ],
+  [
+    "Serotonin",
+    "-->",
+    "Autism"
+  ],
+  [
+    "Lipids",
+    "-->",
+    "Autism"
+  ],
+  [
+    "Immunologic signaling",
+    "-->",
+    "Autism"
+  ]
+]

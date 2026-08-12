@@ -1,0 +1,52 @@
+[
+  [
+    "Attribute state",
+    "-->",
+    "Empathizing"
+  ],
+  [
+    "Empathizing",
+    "-->",
+    "Autism"
+  ],
+  [
+    "Respond to state",
+    "-->",
+    "Empathizing"
+  ],
+  [
+    "Technical",
+    "-->",
+    "Systemizing"
+  ],
+  [
+    "Systemizing",
+    "-->",
+    "Autism"
+  ],
+  [
+    "Natural",
+    "-->",
+    "Systemizing"
+  ],
+  [
+    "Abstract",
+    "-->",
+    "Systemizing"
+  ],
+  [
+    "Social",
+    "-->",
+    "Systemizing"
+  ],
+  [
+    "Organizable",
+    "-->",
+    "Systemizing"
+  ],
+  [
+    "Motoric",
+    "-->",
+    "Systemizing"
+  ]
+]

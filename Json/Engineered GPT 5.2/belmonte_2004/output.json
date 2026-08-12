@@ -1,0 +1,57 @@
+[
+  [
+    "Abnormally low neural signal-to-noise",
+    "--> (constraints force network into all-on or all-off states reducing capacity)",
+    "Reduced information capacity"
+  ],
+  [
+    "Abnormally low neural signal-to-noise",
+    "--> (failure to delimit activation in noisy networks)",
+    "Impaired sensory filtering and hyperarousal"
+  ],
+  [
+    "Abnormally low neural signal-to-noise",
+    "--> (core computational deficit fans out through development)",
+    "Developmental chain of abnormal function"
+  ],
+  [
+    "Abnormal neural connectivity",
+    "--> (abnormal connectivity degrades signal-to-noise)",
+    "Abnormally low neural signal-to-noise"
+  ],
+  [
+    "Developmental chain of abnormal function",
+    "--> (altered neural properties perturb experience-driven maturation)",
+    "Activity-dependent developmental perturbation"
+  ],
+  [
+    "Developmental chain of abnormal function",
+    "--> (developmental adaptation to processing constraints)",
+    "Weak central coherence"
+  ],
+  [
+    "Developmental chain of abnormal function",
+    "--> (early postnatal developmental abnormality manifests anatomically)",
+    "Early brain overgrowth"
+  ],
+  [
+    "Multiplicative genetic susceptibility",
+    "--> (multiple interacting genes bias neural development)",
+    "Core dysfunctions in neural processing"
+  ],
+  [
+    "Cholinergic dysfunction",
+    "--> (neuromodulation of inhibitory circuits)",
+    "Abnormal neural connectivity"
+  ],
+  [
+    "Serotonergic involvement in development",
+    "--> (modulation of sensory input and arousal affecting circuitry)",
+    "Abnormal neural connectivity"
+  ],
+  [
+    "Immunological signalling involvement",
+    "--> (disrupted activity-dependent synaptic refinement)",
+    "Abnormal neural connectivity"
+  ]
+]

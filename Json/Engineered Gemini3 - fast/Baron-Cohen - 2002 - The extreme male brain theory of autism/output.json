@@ -1,0 +1,37 @@
+[
+  [
+    "empathising",
+    "--> (constitutive component)",
+    "female brain"
+  ],
+  [
+    "empathising",
+    "--> (constitutive component (hypo-development))",
+    "extreme male brain"
+  ],
+  [
+    "systemising",
+    "--> (constitutive component)",
+    "male brain"
+  ],
+  [
+    "systemising",
+    "--> (constitutive component (hyper-development))",
+    "extreme male brain"
+  ],
+  [
+    "male brain",
+    "--> (exaggeration of profile)",
+    "extreme male brain"
+  ],
+  [
+    "prenatal testosterone",
+    "--> (inverse relationship)",
+    "empathising"
+  ],
+  [
+    "prenatal testosterone",
+    "--> (positive relationship)",
+    "systemising"
+  ]
+]

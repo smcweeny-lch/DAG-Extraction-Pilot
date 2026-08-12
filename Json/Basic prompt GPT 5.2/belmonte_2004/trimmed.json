@@ -1,0 +1,46 @@
+[
+  ["Genetic susceptibility factors (polygenic, regulatory genes)", "--> (developmentally bias)", "Altered neural development"],
+  ["Epigenetic dysregulation (e.g., MECP2, imprinting)", "--> (developmentally bias)", "Altered neural development"],
+  ["Neurochemical abnormalities (GABA, serotonin, acetylcholine)", "--> (developmentally bias)", "Altered neural development"],
+  ["Immunological signaling abnormalities (MHC-related)", "--> (developmentally bias)", "Altered neural development"],
+  ["Lipid metabolism abnormalities", "--> (developmentally bias)", "Altered neural development"],
+
+  ["Altered neural development", "--> (causes)", "Abnormal neural connectivity"],
+  ["Altered neural development", "--> (causes)", "Early brain overgrowth"],
+  ["Altered neural development", "--> (causes)", "Altered microanatomy (minicolumns, dendrites, white matter)"],
+
+  ["Abnormal neural connectivity", "--> (causes)", "Reduced neural signal-to-noise"],
+  ["Altered microanatomy (minicolumns, dendrites, white matter)", "--> (causes)", "Reduced neural signal-to-noise"],
+
+  ["Reduced neural signal-to-noise", "--> (causes)", "Hyperarousal to sensory input"],
+  ["Reduced neural signal-to-noise", "--> (causes)", "Impaired perceptual selectivity"],
+  ["Reduced neural signal-to-noise", "--> (causes)", "Undifferentiated neural activation"],
+
+  ["Hyperarousal to sensory input", "--> (developmentally overloads)", "Higher-order cognitive systems"],
+  ["Impaired perceptual selectivity", "--> (developmentally overloads)", "Higher-order cognitive systems"],
+
+  ["Higher-order cognitive systems", "--> (developmentally adapt)", "Compensatory processing strategies"],
+
+  ["Compensatory processing strategies", "--> (causes)", "Reliance on low-level feature processing"],
+  ["Reliance on low-level feature processing", "--> (constitutes)", "Weak central coherence"],
+
+  ["Weak central coherence", "--> (causes)", "Impaired contextual integration"],
+  ["Weak central coherence", "--> (causes)", "Executive dysfunction"],
+  ["Weak central coherence", "--> (causes)", "Theory-of-mind impairments"],
+
+  ["Impaired contextual integration", "--> (impairs)", "Joint attention"],
+  ["Executive dysfunction", "--> (impairs)", "Joint attention"],
+  ["Theory-of-mind impairments", "--> (impairs)", "Joint attention"],
+
+  ["Joint attention", "--> (reduces)", "Social cognitive experience"],
+
+  ["Social cognitive experience", "--> (prevents activity-dependent development of)", "Social brain specializations (face, language, social cognition)"],
+
+  ["Social brain specializations (face, language, social cognition)", "--> (causes)", "Social and communicative impairments"],
+
+  ["Reliance on low-level feature processing", "--> (causes)", "Detail-focused perceptual strengths"],
+  ["Detail-focused perceptual strengths", "--> (co-occurs with)", "Restricted and repetitive behaviors"],
+
+  ["Altered neural connectivity", "--> (online effect)", "Epileptiform activity"],
+  ["Epileptiform activity", "--> (correlates with)", "Autism severity"]
+]

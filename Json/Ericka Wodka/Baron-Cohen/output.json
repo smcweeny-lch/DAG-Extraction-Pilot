@@ -1,0 +1,52 @@
+[
+  [
+    "Biology",
+    "-->",
+    "Male Brain"
+  ],
+  [
+    "Biology",
+    "-->",
+    "Female Brain"
+  ],
+  [
+    "Male Brain",
+    "-->",
+    "Socialization"
+  ],
+  [
+    "Male Brain",
+    "-->",
+    "Systemising greater than Empathizing"
+  ],
+  [
+    "Female Brain",
+    "-->",
+    "Socialization"
+  ],
+  [
+    "Female Brain",
+    "-->",
+    "Empathizing greater than Systemising"
+  ],
+  [
+    "Socialization",
+    "-->",
+    "Male Brain"
+  ],
+  [
+    "Socialization",
+    "-->",
+    "Female Brain"
+  ],
+  [
+    "Systemising greater than Empathizing",
+    "-->",
+    "ASD"
+  ],
+  [
+    "Empathizing greater than Systemising",
+    "-->",
+    "?"
+  ]
+]

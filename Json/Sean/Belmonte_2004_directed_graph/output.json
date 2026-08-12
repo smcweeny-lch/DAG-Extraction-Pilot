@@ -1,0 +1,232 @@
+[
+  [
+    "Genes governing neural and synaptic structure",
+    "-->",
+    "Altered microanatomy"
+  ],
+  [
+    "Genes governing neural and synaptic structure",
+    "-->",
+    "Intense, Undifferentiated Response"
+  ],
+  [
+    "Genes governing neural and synaptic structure",
+    "-->",
+    "Brain Overgrowth"
+  ],
+  [
+    "Genes governing neural and synaptic structure",
+    "-->",
+    "Abnormal Connectivity"
+  ],
+  [
+    "Altered microanatomy",
+    "-->",
+    "Low Neural Information Processing (signal-to-noise)"
+  ],
+  [
+    "Intense, Undifferentiated Response",
+    "-->",
+    "Low Neural Information Processing (signal-to-noise)"
+  ],
+  [
+    "Intense, Undifferentiated Response",
+    "-->",
+    "Hyperarousal to sensory input"
+  ],
+  [
+    "Brain Overgrowth",
+    "-->",
+    "Low Neural Information Processing (signal-to-noise)"
+  ],
+  [
+    "Abnormal Connectivity",
+    "-->",
+    "Low Neural Information Processing (signal-to-noise)"
+  ],
+  [
+    "Abnormal Connectivity",
+    "-->",
+    "Epilepsy"
+  ],
+  [
+    "Immunological signaling differences",
+    "-->",
+    "Abnormal Connectivity"
+  ],
+  [
+    "Lipids affective cell-cell signaling",
+    "-->",
+    "Altered microanatomy"
+  ],
+  [
+    "Acetylcholine",
+    "-->",
+    "GABA"
+  ],
+  [
+    "Acetylcholine",
+    "-->",
+    "BDNF"
+  ],
+  [
+    "GABA",
+    "-->",
+    "Altered microanatomy"
+  ],
+  [
+    "GABA",
+    "-->",
+    "Abnormal Connectivity"
+  ],
+  [
+    "BDNF",
+    "-->",
+    "Abnormal Connectivity"
+  ],
+  [
+    "Low Neural Information Processing (signal-to-noise)",
+    "-->",
+    "Altered experience- dependent maturation"
+  ],
+  [
+    "Altered experience- dependent maturation",
+    "-->",
+    "Impaired Selective Sensory Attention"
+  ],
+  [
+    "Impaired Selective Sensory Attention",
+    "-->",
+    "All-or-none early perceptual filtering"
+  ],
+  [
+    "Impaired Selective Sensory Attention",
+    "-->",
+    "Hyperarousal to sensory input"
+  ],
+  [
+    "All-or-none early perceptual filtering",
+    "-->",
+    "Late sensory evaluation of all stimuli"
+  ],
+  [
+    "Flooded higher-order cognitive processes",
+    "-->",
+    "Weak Central Coherence"
+  ],
+  [
+    "Weak Central Coherence",
+    "-->",
+    "Enhanced local processing"
+  ],
+  [
+    "Weak Central Coherence",
+    "-->",
+    "Deficient global processing"
+  ],
+  [
+    "Impaired Attention Switching",
+    "-->",
+    "Weak Central Coherence"
+  ],
+  [
+    "Deficient global processing",
+    "-->",
+    "Impaired executive function"
+  ],
+  [
+    "Deficient global processing",
+    "-->",
+    "Failure to understand social context"
+  ],
+  [
+    "Late sensory evaluation of all stimuli",
+    "-->",
+    "Impaired Attention Switching"
+  ],
+  [
+    "Late sensory evaluation of all stimuli",
+    "-->",
+    "Bottleneck of attentional resources"
+  ],
+  [
+    "Late sensory evaluation of all stimuli",
+    "-->",
+    "Flooded higher-order cognitive processes"
+  ],
+  [
+    "Bottleneck of attentional resources",
+    "-->",
+    "Weak Central Coherence"
+  ],
+  [
+    "Enhanced local processing",
+    "-->",
+    "Inverted Memory"
+  ],
+  [
+    "Enhanced local processing",
+    "-->",
+    "Failure to understand social context"
+  ],
+  [
+    "Enhanced local processing",
+    "-->",
+    "Hyperlexia"
+  ],
+  [
+    "Failure to understand social context",
+    "-->",
+    "Low joint attention"
+  ],
+  [
+    "Failure to understand social context",
+    "-->",
+    "Impaired theory of mind"
+  ],
+  [
+    "Failure to understand social context",
+    "-->",
+    "Low shared affect"
+  ],
+  [
+    "Low joint attention",
+    "-->",
+    "Poverty of the stimulus for early social cognitive experience"
+  ],
+  [
+    "Low shared affect",
+    "-->",
+    "Poverty of the stimulus for early social cognitive experience"
+  ],
+  [
+    "Poverty of the stimulus for early social cognitive experience",
+    "-->",
+    "Preference for rule-based predictable systems"
+  ],
+  [
+    "Preference for rule-based predictable systems",
+    "-->",
+    "Impaired social behavior"
+  ],
+  [
+    "Preference for rule-based predictable systems",
+    "-->",
+    "Piecemeal face processing"
+  ],
+  [
+    "Preference for rule-based predictable systems",
+    "-->",
+    "Impaired communicative language"
+  ],
+  [
+    "Preference for rule-based predictable systems",
+    "-->",
+    "Restricted interests"
+  ],
+  [
+    "Preference for rule-based predictable systems",
+    "-->",
+    "Repetitive behaviors"
+  ]
+]

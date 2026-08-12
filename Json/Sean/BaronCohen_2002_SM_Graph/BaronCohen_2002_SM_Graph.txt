@@ -1,0 +1,23 @@
+  Biological_Sex -> Empathizing
+  Biological_Sex -> Systemizing
+  
+  Empathizing -> Emotion_Processing
+  Empathizing -> Social_Interaction
+  Empathizing -> Mind_Reading
+  Empathizing -> Pragmatics
+  Empathizing -> Vocabulary
+ 
+ 
+  Systemizing -> Attention_to_Detail
+  Systemizing -> Rule_Based_Toy_Activity_Preferences
+  Systemizing -> Islets_of_Ability
+  
+  Social_Interaction -> Autism_Diagnosis
+  Mind_Reading -> Autism_Diagnosis
+  Pragmatics -> Autism_Diagnosis
+  Vocabulary -> Autism_Diagnosis
+  Emotion_Processing -> Autism_Diagnosis
+  Attention_to_Detail -> Autism_Diagnosis
+  Islets_of_Ability -> Autism_Diagnosis
+  Rule_Based_Toy_Activity_Preferences -> Autism_Diagnosis
+  

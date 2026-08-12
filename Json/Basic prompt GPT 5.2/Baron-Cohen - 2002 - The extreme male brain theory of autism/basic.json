@@ -1,0 +1,42 @@
+[
+  ["Prenatal testosterone exposure", "--> increases -->", "Systemising drive"],
+  ["Prenatal testosterone exposure", "--> decreases -->", "Empathising drive"],
+
+  ["Genetic factors", "--> bias toward -->", "Systemising drive"],
+  ["Genetic factors", "--> bias away from -->", "Empathising drive"],
+
+  ["Systemising drive", "--> supports -->", "Rule-based prediction"],
+  ["Systemising drive", "--> supports -->", "Attention to detail"],
+  ["Systemising drive", "--> supports -->", "Interest in lawful systems"],
+
+  ["Empathising drive", "--> supports -->", "Mental state attribution"],
+  ["Empathising drive", "--> supports -->", "Affective responsiveness"],
+  ["Empathising drive", "--> supports -->", "Social prediction"],
+
+  ["Reduced empathising drive", "--> causes -->", "Mindreading impairment"],
+  ["Reduced empathising drive", "--> causes -->", "Reduced eye contact"],
+  ["Reduced empathising drive", "--> causes -->", "Pragmatic language difficulties"],
+
+  ["Enhanced systemising drive", "--> causes -->", "Obsession with closed systems"],
+  ["Enhanced systemising drive", "--> causes -->", "Superior performance in intuitive physics"],
+  ["Enhanced systemising drive", "--> causes -->", "Islets of ability"],
+
+  ["Attention to detail", "--> is necessary for -->", "Systemising"],
+  ["Local processing bias", "--> enables -->", "System rule extraction"],
+
+  ["Extreme systemising drive", "--> developmentally shifts -->", "Brain type toward Extreme Type S"],
+  ["Extreme reduction in empathising", "--> developmentally shifts -->", "Brain type toward Extreme Type S"],
+
+  ["Extreme Type S brain", "--> constitutes -->", "Autism spectrum condition"],
+
+  ["Autism spectrum condition", "--> manifests as -->", "Social unpredictability anxiety"],
+  ["Social unpredictability anxiety", "--> causes -->", "Insistence on sameness"],
+
+  ["Attempt to systemise social behavior", "--> fails to -->", "Support social interaction"],
+  ["Attempt to systemise social behavior", "--> exacerbates -->", "Social difficulties"],
+
+  ["Weak empathising", "--> is sufficient for -->", "Mindblindness"],
+
+  ["Weak central coherence (rejected alternative)", "--> does not explain -->", "Global system understanding"],
+  ["Systemising account", "--> explains -->", "Local-to-global system mastery"]
+]

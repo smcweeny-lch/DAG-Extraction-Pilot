@@ -1,0 +1,237 @@
+[
+  [
+    "Multi-system Brain Disconnectivity-Dissynchrony",
+    "-->",
+    "Increased Local Connectivity and Synchronization"
+  ],
+  [
+    "Multi-system Brain Disconnectivity-Dissynchrony",
+    "-->",
+    "Decreased Global Connectivity and Synchronization"
+  ],
+  [
+    "Decreased Global Connectivity and Synchronization",
+    "-->",
+    "Reduced Cerebellar Connectivity"
+  ],
+  [
+    "Reduced Cerebellar Connectivity",
+    "-->",
+    "Slowed Temporal-Spatial Processing Speed"
+  ],
+  [
+    "Slowed Temporal-Spatial Processing Speed",
+    "-->",
+    "Enhanced Static Stimuli Attention"
+  ],
+  [
+    "Slowed Temporal-Spatial Processing Speed",
+    "-->",
+    "Visuo-Spatial Attention"
+  ],
+  [
+    "Slowed Temporal-Spatial Processing Speed",
+    "-->",
+    "Multi-sensory perception and integration"
+  ],
+  [
+    "Slowed Temporal-Spatial Processing Speed",
+    "-->",
+    "Pattern Recognition"
+  ],
+  [
+    "Slowed Temporal-Spatial Processing Speed",
+    "-->",
+    "Sensorimotor Feedback Adjustment"
+  ],
+  [
+    "Enhanced Static Stimuli Attention",
+    "-->",
+    "Weak Central Coherence"
+  ],
+  [
+    "Enhanced Static Stimuli Attention",
+    "-->",
+    "Enhanced spatial memory"
+  ],
+  [
+    "Enhanced Static Stimuli Attention",
+    "-->",
+    "Enhanced pitch discrimination"
+  ],
+  [
+    "Visuo-Spatial Attention",
+    "-->",
+    "Orienting Visual-Spatial Attention"
+  ],
+  [
+    "Visuo-Spatial Attention",
+    "-->",
+    "Shifting Visual-Spatial Attention"
+  ],
+  [
+    "Multi-sensory perception and integration",
+    "-->",
+    "Phoneme Perception and Categorization"
+  ],
+  [
+    "Multi-sensory perception and integration",
+    "-->",
+    "Low high-speed oculo-motor reactivity"
+  ],
+  [
+    "Multi-sensory perception and integration",
+    "-->",
+    "Action Imitation"
+  ],
+  [
+    "Multi-sensory perception and integration",
+    "-->",
+    "Imitation of Moving or Emoting Faces"
+  ],
+  [
+    "Pattern Recognition",
+    "-->",
+    "Speeded Facial Expression Recognition"
+  ],
+  [
+    "Pattern Recognition",
+    "-->",
+    "Action Imitation"
+  ],
+  [
+    "Pattern Recognition",
+    "-->",
+    "Phoneme Perception and Categorization"
+  ],
+  [
+    "Sensorimotor Feedback Adjustment",
+    "-->",
+    "Action Imitation"
+  ],
+  [
+    "Sensorimotor Feedback Adjustment",
+    "-->",
+    "Visuo-Motor Coordination"
+  ],
+  [
+    "Sensorimotor Feedback Adjustment",
+    "-->",
+    "Executive Function"
+  ],
+  [
+    "Sensorimotor Feedback Adjustment",
+    "-->",
+    "Visuo-Postural Control/Adjustment"
+  ],
+  [
+    "Sensorimotor Feedback Adjustment",
+    "-->",
+    "Proprioceptive Flow Processing"
+  ],
+  [
+    "Phoneme Perception and Categorization",
+    "-->",
+    "Verbal Imitation"
+  ],
+  [
+    "Phoneme Perception and Categorization",
+    "-->",
+    "Expressive and Receptive Language"
+  ],
+  [
+    "Action Imitation",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Imitation of Moving or Emoting Faces",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Speeded Facial Expression Recognition",
+    "-->",
+    "Imitation of Moving or Emoting Faces"
+  ],
+  [
+    "Speeded Facial Expression Recognition",
+    "-->",
+    "Eye contact"
+  ],
+  [
+    "Speeded Facial Expression Recognition",
+    "-->",
+    "Attention to Faces"
+  ],
+  [
+    "Speeded Facial Expression Recognition",
+    "-->",
+    "Empathizing"
+  ],
+  [
+    "Speeded Facial Expression Recognition",
+    "-->",
+    "Mindblindness"
+  ],
+  [
+    "Verbal Imitation",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Expressive and Receptive Language",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Eye contact",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Attention to Faces",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Empathizing",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Mindblindness",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Visuo-Motor Coordination",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Visuo-Motor Coordination",
+    "-->",
+    "Repetitive and Stereotyped Behaviors"
+  ],
+  [
+    "Executive Function",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Visuo-Postural Control/Adjustment",
+    "-->",
+    "Social Interaction"
+  ],
+  [
+    "Visuo-Postural Control/Adjustment",
+    "-->",
+    "Repetitive and Stereotyped Behaviors"
+  ],
+  [
+    "Proprioceptive Flow Processing",
+    "-->",
+    "Visuo-Postural Control/Adjustment"
+  ]
+]

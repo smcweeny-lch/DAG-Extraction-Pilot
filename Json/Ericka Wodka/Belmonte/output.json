@@ -1,0 +1,47 @@
+[
+  [
+    "Genetics",
+    "-->",
+    "Atypical brain development"
+  ],
+  [
+    "Genetics",
+    "-->",
+    "Environment"
+  ],
+  [
+    "Atypical brain development",
+    "-->",
+    "Weak central coherence"
+  ],
+  [
+    "Atypical brain development",
+    "-->",
+    "ASD phenotype"
+  ],
+  [
+    "Environment",
+    "-->",
+    "Atypical brain development"
+  ],
+  [
+    "Environment",
+    "-->",
+    "Genetics"
+  ],
+  [
+    "Weak central coherence",
+    "-->",
+    "ASD phenotype"
+  ],
+  [
+    "ASD phenotype",
+    "-->",
+    "Functional impairment"
+  ],
+  [
+    "Compensatory behavior",
+    "-->",
+    "ASD phenotype"
+  ]
+]

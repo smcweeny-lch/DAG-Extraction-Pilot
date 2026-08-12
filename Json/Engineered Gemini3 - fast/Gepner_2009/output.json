@@ -1,0 +1,57 @@
+[
+  [
+    "Temporo-spatial processing disorders (TSPDs)",
+    "--> (phenotypic expression)",
+    "E-Motion Mis-sight"
+  ],
+  [
+    "Temporo-spatial processing disorders (TSPDs)",
+    "--> (reduced speed of analysis)",
+    "Slowed perceptual and sensory-motor processing speed"
+  ],
+  [
+    "Temporo-spatial processing disorders (TSPDs)",
+    "--> (phenotypic expression in visual modality)",
+    "Rapid visual-motion integration deficit"
+  ],
+  [
+    "Temporo-spatial processing disorders (TSPDs)",
+    "--> (phenotypic expression in auditory modality)",
+    "Rapid auditory processing deficit"
+  ],
+  [
+    "Temporo-spatial processing disorders (TSPDs)",
+    "--> (phenotypic expression in proprioceptive modality)",
+    "Proprioceptive flow processing deficit"
+  ],
+  [
+    "Multi-system Brain Disconnectivity-Dissynchrony (MBD)",
+    "--> (neurobiological cause)",
+    "Temporo-spatial processing disorders (TSPDs)"
+  ],
+  [
+    "Functional under-connectivity",
+    "--> (failure to process dynamic stimuli online)",
+    "Temporo-spatial processing disorders (TSPDs)"
+  ],
+  [
+    "Functional over-connectivity",
+    "--> (over-focusing on static details)",
+    "Temporo-spatial processing disorders (TSPDs)"
+  ],
+  [
+    "Neuronal hypo-synchronization",
+    "--> (failure to process dynamic stimuli online)",
+    "Temporo-spatial processing disorders (TSPDs)"
+  ],
+  [
+    "Neuronal hyper-synchronization",
+    "--> (over-focusing on static details)",
+    "Temporo-spatial processing disorders (TSPDs)"
+  ],
+  [
+    "Structural brain abnormalities",
+    "--> (underlying anatomical substrate)",
+    "Multi-system Brain Disconnectivity-Dissynchrony (MBD)"
+  ]
+]

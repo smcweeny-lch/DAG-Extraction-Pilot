@@ -1,0 +1,21 @@
+[
+  ["Genetic susceptibility factors (e.g., GABRB3, SLC6A4)", "-->", "Altered neural/synaptic structure"],
+  ["Environmental interactions", "-->", "Altered neural/synaptic structure"],
+  ["Altered neural/synaptic structure", "-->", "Abnormal neural connectivity"],
+  ["Abnormal neural connectivity", "-->", "Low neural signal-to-noise ratio"],
+  ["Low neural signal-to-noise ratio", "-->", "Undifferentiated neural response"],
+  ["Undifferentiated neural response", "-->", "Sensory hyperarousal and poor stimulus selection"],
+  ["Sensory hyperarousal and poor stimulus selection", "-->", "Overload of nascent higher-order cognitive processes"],
+  ["Overload of nascent higher-order cognitive processes", "-->", "Compensatory reliance on low-level features"],
+  ["Compensatory reliance on low-level features", "-->", "Weak central coherence"],
+  ["Weak central coherence", "-->", "Impaired use of contextual information"],
+  ["Impaired use of contextual information", "-->", "Impaired Theory of Mind"],
+  ["Impaired use of contextual information", "-->", "Impaired executive function"],
+  ["Impaired Theory of Mind", "-->", "Impaired social interaction and communication"],
+  ["Impaired executive function", "-->", "Restricted and repetitive behaviors"],
+  ["Weak central coherence", "-->", "Cognitive advantages in local detail tasks"],
+  ["Abnormal neural connectivity", "-->", "Early brain overgrowth (transient macrencephaly)"],
+  ["GABAergic dysfunction", "-->", "Increased incidence of epilepsy"],
+  ["Deficit in activity-dependent weakening (e.g., MHC class I)", "-->", "Failure of synapse elimination/pruning"],
+  ["Failure of synapse elimination/pruning", "-->", "Abnormal neural connectivity"]
+]

@@ -1,0 +1,92 @@
+[
+  [
+    "genetic susceptibility factors",
+    "--> (fan-in (convergence))",
+    "low signal-to-noise ratio"
+  ],
+  [
+    "environmental interactions",
+    "--> (fan-in (convergence))",
+    "low signal-to-noise ratio"
+  ],
+  [
+    "abnormal neural connectivity",
+    "--> (not specified)",
+    "low signal-to-noise ratio"
+  ],
+  [
+    "abnormal neural connectivity",
+    "--> (not specified)",
+    "failure to delimit activation"
+  ],
+  [
+    "low signal-to-noise ratio",
+    "--> (fan-out)",
+    "autism spectrum disorders"
+  ],
+  [
+    "low signal-to-noise ratio",
+    "--> (not specified)",
+    "reduced information capacity"
+  ],
+  [
+    "failure to delimit activation",
+    "--> (not specified)",
+    "hyperarousal"
+  ],
+  [
+    "weak central coherence",
+    "--> (secondary property)",
+    "impaired executive function"
+  ],
+  [
+    "surfeit of local processing",
+    "--> (cognitive style)",
+    "weak central coherence"
+  ],
+  [
+    "impaired executive function",
+    "--> (not specified)",
+    "impaired social interaction"
+  ],
+  [
+    "impaired executive function",
+    "--> (not specified)",
+    "repetitive behaviours"
+  ],
+  [
+    "transient postnatal macrencephaly",
+    "--> (abnormal chain of development)",
+    "abnormal neural connectivity"
+  ],
+  [
+    "impaired synaptic pruning",
+    "--> (increase in cortical grey matter volume)",
+    "transient postnatal macrencephaly"
+  ],
+  [
+    "GABAergic pathology",
+    "--> (not specified)",
+    "abnormal neural connectivity"
+  ],
+  [
+    "cholinergic abnormality",
+    "--> (abnormal developmental changes in septal neurons)",
+    "abnormal neural connectivity"
+  ],
+  [
+    "serotonergic function",
+    "--> (guiding neurodevelopment)",
+    "abnormal neural connectivity"
+  ],
+  [
+    "lipid-associated pathways",
+    "--> (not specified)",
+    "abnormal neural connectivity"
+  ],
+  [
+    "immunological signalling factors",
+    "--> (not specified)",
+    "abnormal neural connectivity"
+  ]
+]

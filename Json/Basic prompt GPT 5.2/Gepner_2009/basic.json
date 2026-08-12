@@ -1,0 +1,49 @@
+[
+  ["Genetic anomalies", "--> (contribute to)", "Structural brain abnormalities"],
+  ["Environmental insults", "--> (contribute to)", "Structural brain abnormalities"],
+  ["Epigenetic alterations", "--> (contribute to)", "Structural brain abnormalities"],
+
+  ["Structural brain abnormalities", "--> (give rise to)", "Multi-system Brain Disconnectivity-Dissynchrony (MBD)"],
+
+  ["Multi-system Brain Disconnectivity-Dissynchrony (MBD)", "--> (causes)", "Abnormal neural synchrony"],
+  ["Multi-system Brain Disconnectivity-Dissynchrony (MBD)", "--> (causes)", "Abnormal functional connectivity"],
+
+  ["Abnormal neural synchrony", "--> (results in)", "Temporo-spatial processing disorders (TSPD)"],
+  ["Abnormal functional connectivity", "--> (results in)", "Temporo-spatial processing disorders (TSPD)"],
+
+  ["Temporo-spatial processing disorders (TSPD)", "--> (impair)", "Online processing of dynamic multisensory stimuli"],
+  ["Temporo-spatial processing disorders (TSPD)", "--> (impair)", "Temporal integration of sensory inputs"],
+  ["Temporo-spatial processing disorders (TSPD)", "--> (impair)", "Real-time sensory-motor coupling"],
+
+  ["Impaired temporal integration of sensory inputs", "--> (causes)", "Visual motion processing deficits"],
+  ["Impaired temporal integration of sensory inputs", "--> (causes)", "Speech flow processing deficits"],
+  ["Impaired temporal integration of sensory inputs", "--> (causes)", "Proprioceptive flow processing deficits"],
+
+  ["Visual motion processing deficits", "--> (lead to)", "Eye movement perception deficits"],
+  ["Visual motion processing deficits", "--> (lead to)", "Facial motion perception deficits"],
+
+  ["Speech flow processing deficits", "--> (lead to)", "Phoneme categorization deficits"],
+  ["Speech flow processing deficits", "--> (lead to)", "Language impairments"],
+
+  ["Proprioceptive flow processing deficits", "--> (lead to)", "Motor anticipation deficits"],
+  ["Proprioceptive flow processing deficits", "--> (lead to)", "Postural control abnormalities"],
+
+  ["Eye movement perception deficits", "--> (contribute to)", "Eye contact disorders"],
+  ["Eye movement perception deficits", "--> (contribute to)", "Joint attention deficits"],
+
+  ["Facial motion perception deficits", "--> (lead to)", "E-Motion Mis-sight"],
+  ["E-Motion Mis-sight", "--> (is an early precursor of)", "Empathizing deficits"],
+  ["Empathizing deficits", "--> (contribute to)", "Mindblindness"],
+
+  ["Motor anticipation deficits", "--> (contribute to)", "Executive dysfunction"],
+  ["Executive dysfunction", "--> (includes)", "Slowed cognitive processing speed"],
+
+  ["Temporo-spatial processing disorders (TSPD)", "--> (bias attention toward)", "Static sensory stimuli"],
+  ["Bias toward static sensory stimuli", "--> (results in)", "Over-focused local perception"],
+  ["Over-focused local perception", "--> (results in)", "Weak central coherence"],
+
+  ["Slowing down sensory stimuli", "--> (temporarily ameliorates)", "Temporo-spatial processing disorders (TSPD)"],
+  ["Slowing down sensory stimuli", "--> (improves)", "Facial emotion recognition"],
+  ["Slowing down sensory stimuli", "--> (improves)", "Imitation abilities"],
+  ["Slowing down sensory stimuli", "--> (improves)", "Verbal comprehension"]
+]
