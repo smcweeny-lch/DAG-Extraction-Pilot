@@ -1,0 +1,7 @@
+"","Coder1","Coder2","SharedNodes","Coder1_unique_nodes","Coder2_unique_nodes","Jaccard_Nodes","Jaccard_Edges_Raw","Jaccard_Edges_Closure","theory"
+"1","TE1","TE2","14","5","22","0.341","0.076","0.765","Belmonte"
+"2","Gemini","TE1","8","13","11","0.25","0.128","0.714","Belmonte"
+"3","Gemini","TE2","17","4","19","0.425","0.066","0.605","Belmonte"
+"4","GPT","TE2","22","6","14","0.524","0.069","0.67","Belmonte"
+"5","GPT","TE1","11","17","8","0.306","0.098","0.655","Belmonte"
+"6","GPT","Gemini","17","11","4","0.531","0.111","0.786","Belmonte"

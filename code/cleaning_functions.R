@@ -610,6 +610,7 @@ max_consistent_subset <- function(edges1, edges2) {
 }
 
 ## Summarize closure-based differences between graphs
+## defunct / not useful
 summarize_by_node <- function(edge_diffs) {
   if (nrow(edge_diffs) == 0) {
     return(data.frame(

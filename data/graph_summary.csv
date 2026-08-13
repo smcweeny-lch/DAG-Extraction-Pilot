@@ -1,0 +1,25 @@
+encoder,theory,nodes,edges
+Basic prompt Gemini3 - fast,"Baron-Cohen, 2002",35,23
+Basic prompt GPT 5.2,"Baron-Cohen, 2002",37,28
+Emily Skaletski,"Baron-Cohen, 2002",11,10
+Engineered Gemini3 - fast,"Baron-Cohen, 2002",6,7
+Engineered GPT 5.2,"Baron-Cohen, 2002",5,3
+Ericka Wodka,"Baron-Cohen, 2002",8,10
+Josh,"Baron-Cohen, 2002",28,28
+Sean,"Baron-Cohen, 2002",12,18
+Basic prompt Gemini3 - fast,"Belmonte et al., 2004",21,19
+Basic prompt GPT 5.2,"Belmonte et al., 2004",31,31
+Emily Skaletski,"Belmonte et al., 2004",8,7
+Engineered Gemini3 - fast,"Belmonte et al., 2004",20,18
+Engineered GPT 5.2,"Belmonte et al., 2004",13,11
+Ericka Wodka,"Belmonte et al., 2004",7,9
+Josh,"Belmonte et al., 2004",22,25
+Sean,"Belmonte et al., 2004",37,46
+Basic prompt Gemini3 - fast,"Gepner & Feron, 2009",32,24
+Basic prompt GPT 5.2,"Gepner & Feron, 2009",36,34
+Emily Skaletski,"Gepner & Feron, 2009",9,8
+Engineered Gemini3 - fast,"Gepner & Feron, 2009",12,11
+Engineered GPT 5.2,"Gepner & Feron, 2009",4,3
+Ericka Wodka,"Gepner & Feron, 2009",8,11
+Josh,"Gepner & Feron, 2009",36,48
+Sean,"Gepner & Feron, 2009",32,47
