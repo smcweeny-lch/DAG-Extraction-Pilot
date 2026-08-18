@@ -129,12 +129,17 @@ diffs.full %>% distinct(from, to, who_error, .keep_all = TRUE) %>% group_by(erro
 
 
 
-
+# group by theory as well for more detailed view
 diffs.full %>% distinct(from, to, .keep_all = TRUE) %>% filter(error_ambiguity == "ambiguity") %>%
   group_by(coder1, coder2) %>% 
   count() %>%
   rename(Ambiguities = n)
 
 
-errors %>% group_by(who_error) %>% summarize(Commission = sum(Commission),
-                                             Omission = sum(Omission))
+# errors %>% group_by(who_error) %>% summarize(Commission = sum(Commission),
+#                                              Omission = sum(Omission))
+commission_errors <- diffs.full %>% filter(error_type == "Commission")
+# write.csv(commission_errors, "../disagreement_classification/commission_errors_to_drop.csv", row.names = F)
+
+
+

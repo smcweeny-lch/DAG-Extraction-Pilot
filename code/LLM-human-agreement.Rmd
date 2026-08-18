@@ -1493,7 +1493,10 @@ report.table.baron.cohen$theory = "Baron-Cohen"
 
 report.table.summary <- bind_rows(report.table.belmonte, report.table.baron.cohen, report.table.gepner)
 
-DT::datatable(report.table.summary %>% group_by(Coder1, Coder2) %>% summarize(Jaccard_Nodes = round(mean(as.numeric(Jaccard_Nodes)),3), 
+DT::datatable(report.table.summary %>% group_by(Coder1, Coder2) %>% summarize(Coder1_Unique = round(mean(as.numeric(Coder1_unique_nodes)),3),
+                                                                             Coder2_unique = round(mean(as.numeric(Coder2_unique_nodes)), 3),
+                                                                             SharedNodes = round(mean(as.numeric(SharedNodes)), 3),
+                                                                            Jaccard_Nodes = round(mean(as.numeric(Jaccard_Nodes)),3), 
                                                                              Jaccard_Edges_Raw = round(mean(as.numeric(Jaccard_Edges_Raw)),3),
                                                                              Jaccard_Edges_Closure = round(mean(as.numeric(Jaccard_Edges_Closure)),3)))
 

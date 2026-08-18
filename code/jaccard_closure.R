@@ -49,27 +49,8 @@ cmp <- cmp.gpt.gemini
 mcs <- mcs.gpt.gemini
 report.table.gpt.gemini <- c(Coder1 = "GPT", Coder2 = "Gemini", SharedNodes = length(cmp$shared_nodes), Coder1_unique_nodes = length(cmp$unique_nodes1), Coder2_unique_nodes = length(cmp$unique_nodes2), Jaccard_Nodes = round(cmp$jaccard_nodes, 3), Jaccard_Edges_Raw = round(cmp$jaccard_raw_edges, 3), Jaccard_Edges_Closure = round(cmp$jaccard_edges_shared_nodes,3))
 
-report.table.belmonte <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini) %>% 
-  mutate(theory = "Belmonte")
-
-report.table.baroncohen <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini) %>% 
-  mutate(theory = "Baron-Cohen")
-
-report.table.gepner <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini)%>% 
-  mutate(theory = "Gepner")
-
-
-report.table <- bind_rows(report.table.belmonte, report.table.baroncohen, report.table.gepner) %>% 
-  mutate(across(SharedNodes:Jaccard_Edges_Closure, ~ round(as.numeric(.x), 3)))
-
-report.table.summary <- report.table %>% group_by(Coder1, Coder2) %>% 
-  summarize(Shared_Nodes_Mean = mean(SharedNodes),
-            Coder1_unique_nodes = mean(Coder1_unique_nodes),
-            Coder2_unique_nodes = mean(Coder2_unique_nodes),
-            Jaccard_Nodes = mean(Jaccard_Nodes),
-            Jaccard_Edges_Raw = mean(Jaccard_Edges_Raw),
-            Jaccard_Edges_Closure = mean(Jaccard_Edges_Closure)) %>% 
-  mutate(across(Shared_Nodes_Mean:Jaccard_Edges_Closure, ~ round(.x, 3)))
-
-
-DT::datatable(report.table.summary)
+# report.table.belmonte <- bind_rows(report.table.j.s, report.table.gemini.j, report.table.gemini.s, report.table.gpt.s, report.table.gpt.j, report.table.gpt.gemini) %>%
+#   mutate(theory = "Belmonte")
+# 
+# write.csv(report.table.belmonte, "../data/report_table_belmonte.csv")
+# %>% 

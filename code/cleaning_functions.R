@@ -609,6 +609,18 @@ max_consistent_subset <- function(edges1, edges2) {
   )
 }
 
+drop_error_edges <- function(g, edges){
+  # edges should be from commission errors
+  if(class(g) == "igraph"){
+    g <- as_data_frame(g)
+  } # allows for flexible input of either igraph or df 
+  edges_to_drop <- paste0(edges$from, "->", edges$to)
+  g <- g %>% filter(!paste0(from, "->", to) %in% edges_to_drop)
+  return(g)
+}
+
+
+
 ## Summarize closure-based differences between graphs
 ## defunct / not useful
 summarize_by_node <- function(edge_diffs) {
