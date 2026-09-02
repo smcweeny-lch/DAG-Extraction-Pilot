@@ -1,0 +1,10 @@
+node_map,OG,encoder,classification
+ABNORMAL CONNECTIVITY,Abnormal neural connectivity,GPT,error
+ABNORMAL CONNECTIVITY,Altered neural connectivity,GPT,error
+INVERTED MEMORY,Decreased semantic memory,j,specificity
+INVERTED MEMORY,Increased rote memory,j,specificity
+RRB,Restricted interests,s,specificity
+RRB,Repetitive behaviors,s,specificity
+SOCIAL_BRAIN_SPECIALIZATION,Specialized experience dependent capacity for complex social relations,j,specificity
+SOCIAL_BRAIN_SPECIALIZATION,Specialized experience dependent capacity for language,j,specificity
+SOCIAL_BRAIN_SPECIALIZATION,Specialized experience dependent capacity face processing,j,specificity

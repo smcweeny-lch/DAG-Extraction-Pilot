@@ -1,0 +1,51 @@
+node_map,OG,encoder,classification
+BRAIN TYPE,Brain type toward Extreme Type S,GPT,error
+BRAIN TYPE,Extreme Type S brain,GPT,error
+BRAIN TYPE,Brain Type,Gemini,error
+BRAIN TYPE,S >> E,Gemini,error
+BRAIN TYPE,S > E,Gemini,error
+BRAIN TYPE,E > S,Gemini,error
+BRAIN TYPE,Extreme Type S Profile,Gemini,error
+BRAIN TYPE,Autistic Brain Profile (Extreme Type S),Gemini,error
+BRAIN TYPE,Female Brain Profile (Type E),Gemini,error
+BRAIN TYPE,Male Brain Profile (Type S),Gemini,error
+BRAIN TYPE,Extreme Male Cognitive Style,Gemini,error
+CLOSED SYSTEM INTERESTS/ANALYSIS,Obsession with closed systems,GPT,specificity
+CLOSED SYSTEM INTERESTS/ANALYSIS,System rule extraction,GPT,specificity
+CLOSED SYSTEM INTERESTS/ANALYSIS,Interest in lawful systems,GPT,specificity
+CLOSED SYSTEM INTERESTS/ANALYSIS,Obsessional interests in closed systems,Gemini,specificity
+CLOSED SYSTEM INTERESTS/ANALYSIS,Analysis of variables in a system,Gemini,error
+CLOSED SYSTEM INTERESTS/ANALYSIS,Derivation of underlying rules,Gemini,error
+EMPATHIZING,Empathising drive,GPT,error
+EMPATHIZING,Reduced empathising drive,GPT,error
+EMPATHIZING,Extreme reduction in empathising,GPT,error
+EMPATHIZING,Weak empathising,GPT,error
+EMPATHIZING,Empathising Drive,Gemini,error
+EMPATHIZING,Empathising Drive (E),Gemini,error
+EMPATHIZING,Hypo-developed Empathising,Gemini,error
+LOCAL/GLOBAL MASTERY,Local-to-global system mastery,GPT,error
+LOCAL/GLOBAL MASTERY,Global system understanding,GPT,error
+MINDREADING,Mindreading impairment,GPT,error
+MINDREADING,Mindblindness,GPT,error
+MINDREADING,Mental state attribution,GPT,error
+MINDREADING,(Decreased) Mindreading,j,error
+MINDREADING,(Decreased) use of ToM,j,error
+SEX-RELATED BIOLOGICAL FACTORS,Prenatal testosterone exposure,GPT,specificity
+SEX-RELATED BIOLOGICAL FACTORS,Genetic factors,GPT,specificity
+SEX-RELATED BIOLOGICAL FACTORS,Prenatal Testosterone,Gemini,specificity
+SEX-RELATED BIOLOGICAL FACTORS,Biology (Genetics/Prenatal Testosterone),Gemini,specificity
+SEX-RELATED BIOLOGICAL FACTORS,Inheritance/Familiality,Gemini,specificity
+SEX-RELATED BIOLOGICAL FACTORS,Female biological factors,j,specificity
+SEX-RELATED BIOLOGICAL FACTORS,Male biological factors,j,specificity
+SOCIAL PREDICTION,Prediction of social behavior,Gemini,error
+SOCIAL PREDICTION,Unpredictable Social World,Gemini,error
+SOCIAL PREDICTION,Avoidance of “unpredictable” humans,j,specificity
+SOCIAL PREDICTION,Control of human unpredictability through tantrums or insistence on sameness,j,specificity
+SYSTEMIZING,Systemising drive,GPT,error
+SYSTEMIZING,Systemising,GPT,error
+SYSTEMIZING,Enhanced systemising drive,GPT,error
+SYSTEMIZING,Extreme systemising drive,GPT,error
+SYSTEMIZING,Systemising account,GPT,error
+SYSTEMIZING,Systemising Drive,Gemini,error
+SYSTEMIZING,Systemising Drive (S),Gemini,error
+SYSTEMIZING,Hyper-developed Systemising,Gemini,error

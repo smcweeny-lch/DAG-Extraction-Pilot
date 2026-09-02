@@ -1,0 +1,33 @@
+node_map,OG,encoder,classification
+ABNORMAL CONNECTIVITY/SYNCHRONIZATION,Abnormal functional connectivity,GPT,specificity
+ABNORMAL CONNECTIVITY/SYNCHRONIZATION,Abnormal neural synchrony,GPT,specificity
+ABNORMAL CONNECTIVITY/SYNCHRONIZATION,Increased Local Connectivity and Synchronization,s,specificity
+ABNORMAL CONNECTIVITY/SYNCHRONIZATION,Decreased Global Connectivity and Synchronization,s,specificity
+FACIAL_EMOTION_RECOGNITION,E-Motion Mis-sight,GPT,specificity
+FACIAL_EMOTION_RECOGNITION,Facial emotion recognition,GPT,specificity
+FACIAL_EMOTION_RECOGNITION,Decreased recognition of facial stimuli involving motion or emotion,j,specificity
+FACIAL_EMOTION_RECOGNITION,Slowed face processing in emotional contexts,j,specificity
+FACIAL_MOTION_PERCEPTION,Decreased eye direction detection,j,specificity
+FACIAL_MOTION_PERCEPTION,Decreased lip movement processing,j,specificity
+FACIAL_MOTION_PERCEPTION,"Decreased ability to process eye, lip and emotional facial movements",j,specificity
+LANGUAGE,Language impairments,GPT,specificity
+LANGUAGE,Verbal comprehension,GPT,specificity
+LANGUAGE,Challenges with verbal comprehension,j,specificity
+LANGUAGE,Challenges in in verbal and language abilities,j,specificity
+SENSORIMOTOR_SPEED,Slowed sensory-motor processing,j,specificity
+SENSORIMOTOR_SPEED,Slowed motor (processing) speed,j,specificity
+SPATIAL_MEMORY_GRAPHIC_ABILITIES,Enhanced spatial memory,j,specificity
+SPATIAL_MEMORY_GRAPHIC_ABILITIES,Enhanced graphic abilities,j,specificity
+STATIC_BIAS,Bias toward static sensory stimuli,GPT,error
+STATIC_BIAS,Static sensory stimuli,GPT,error
+TEMPORAL_INTEGRATION,Temporal integration of sensory inputs,GPT,error
+TEMPORAL_INTEGRATION,Impaired temporal integration of sensory inputs,GPT,error
+TSPD,TSPD of multi-sensory flows,Gemini,specificity
+TSPD,Temporo-spatial processing disorders (TSPD),Gemini,specificity
+VERBAL_IMITATION,Verbal imitation disorders,j,error
+VERBAL_IMITATION,Challenges with verbal imitation,j,error
+VISUO-AUDITORY ASSOCIATION DISORDERS,Visuo-auditory association disorders,Gemini,error
+VISUO-AUDITORY ASSOCIATION DISORDERS,TSPD (Visual & Auditory),Gemini,error
+VISUO_SPATIAL_ATTENTION,Visuo-Spatial Attention,s,specificity
+VISUO_SPATIAL_ATTENTION,Orienting Visual-Spatial Attention,s,specificity
+VISUO_SPATIAL_ATTENTION,Shifting Visual-Spatial Attention,s,specificity
