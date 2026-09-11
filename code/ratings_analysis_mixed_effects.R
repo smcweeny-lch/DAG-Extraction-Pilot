@@ -107,13 +107,28 @@ model <- lmerTest::lmer(TotalScore ~ Class + (1 | Rater), data = df %>% filter(C
 summary(model)
 .6821/(.6821/.6821+.4416)
 
-model <- lmerTest::lmer(TotalScore ~ Class2*Paper + (1 | Rater), data = df)
+model <- lmerTest::lmer(TotalScore ~ Class + (1 | Rater), data = df)
 summary(model)
 
 
 model <- lmerTest::lmer(TotalScore ~ Class2 + (1 | Rater), data = df %>% filter(Class %in% c("Trained Human", "Naive")))
 summary(model)
 
+
+
+model <- lmerTest::lmer(TotalScore ~ Class + (1 | Rater), data = df)
+anova(model, ddf = "Kenward-Roger")
+summary(model)
+.6067/(.6067+.4316)
+
+emm <- emmeans::emmeans(model, ~ Class)
+
+emmeans::contrast(emm, method = list(
+  "Engineered - Naive" = c(1,-1,0,0),
+  "Trained Human - Untrained Human" = c(0,0,1,-1),
+  "Trained Human - Naive" = c(0,-1,1,0)
+  ), adjust = "holm"
+)
 
 # df %>% group_by(Encoder) %>% 
 #   summarize(correct = sum(TuringCorrect)) %>% 
