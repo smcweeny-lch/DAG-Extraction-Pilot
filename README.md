@@ -2,13 +2,15 @@
 
 The analysis pipeline is as follows:
 
-1. Node equivalence mapping ```./abstraction/consensus_belmonte.csv``` and mapping agreement ```belmonte_abstraction_agreement.R```
+1. Node equivalence mapping ```./abstraction/consensus_belmonte.csv``` and mapping agreement ```belmonte_abstraction_agreement.R``` and so on for Baron-Cohen and Gepner.
 
 2. ```Node_Label_merging_and_Cleaned_Graphs.Rmd``` - plots the raw and cleaned individual DAGs for TE1, TE2, Gemini, and GPT (minimal prompt)
 
-3. ```disagreement_classification.R``` creates the reachability (transitive-closure) disagreements (plots in ```LLM-human-agreement.Rmd```). Auto-classifies cycle vs. asymmetry, creates list of edges responsible for disagreements (stored in ./disagreement_classification/[theory]_disagreement). Uses original edges to find which edges from the disagreement edges (using ```compare_graphs()```) are responsible. ```disagreement_summaries.R``` takes the human-classified errors vs. ambiguities (and trivial differences) and summarizes unique errors by encoder and ambiguities by encoder-pairs. Summary output saved in ```data/```
+3. ```disagreement_classification.R``` creates the reachability (transitive-closure) disagreements (plots in ```LLM-human-agreement.Rmd```). Auto-classifies cycle vs. asymmetry, creates list of edges responsible for disagreements (stored in ./disagreement_classification/[theory]_disagreement). Uses original edges to find which edges from the disagreement edges (using ```compare_graphs()```) are responsible. ```disagreement_summaries.R``` takes the human-classified errors vs. ambiguities (and trivial differences) and summarizes unique errors by encoder and ambiguities by encoder-pairs. Summary output saved in ```data/```. ```disagreement_summaries.R``` also outputs commission/omission errors to ```./disagreement_classification/commission_errors_to_drop.csv``` and ```/disagreement_classification/omission_errors_to_add.csv```
 
-4. ```jaccard_closure.R``` calculates the summary statistics about disagreements. Closure-based Jaccard is best metric, but still can artificially tank agreement among pairs with a cycle because cycles have an outsize influence on reachability. Summary output saved in ```data/```
+4. ```code/updated_subgraphs_after_error_handling.R``` takes the identified errors and drops/adds them to each encoder's original graph. So far, only done for human pairs. Needs to solve plotting cycles for publication. 
+
+5. ```jaccard_closure.R``` calculates the summary statistics about disagreements. Closure-based Jaccard is best metric, but still can artificially tank agreement among pairs with a cycle because cycles have an outsize influence on reachability. Summary output saved in ```data/```
 
 
 cleaning_functions.R contains all relevant functions for cleaning and analysis including:

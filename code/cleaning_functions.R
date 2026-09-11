@@ -4,7 +4,9 @@ load.graphs <- function(theory, node_mapping = "consensus"){
   
   if(theory == "Belmonte"){
     if(node_mapping == "consensus"){
-      consensus <- read.csv("../abstraction/consensus_Belmonte.csv") %>% filter(!consensus == "")
+      consensus <- read.csv("../abstraction/consensus_Belmonte.csv") %>% filter(!consensus == "") %>% 
+        select(original, consensus) %>% 
+        distinct()
       node_map <- consensus$consensus
       names(node_map) <- consensus$original
     } else if(node_mapping == "JE"){
@@ -40,7 +42,9 @@ load.graphs <- function(theory, node_mapping = "consensus"){
     
   }  else if(theory == "Baron-Cohen"){
     if(node_mapping == "consensus"){
-      consensus <- read.csv("../abstraction/consensus_BaronCohen.csv") %>% filter(!consensus == "")
+      consensus <- read.csv("../abstraction/consensus_BaronCohen.csv") %>% filter(!consensus == "") %>% 
+        select(original, consensus) %>% 
+        distinct()
       node_map <- consensus$consensus
       names(node_map) <- consensus$original
     } else if(node_mapping == "JE"){
@@ -77,7 +81,9 @@ load.graphs <- function(theory, node_mapping = "consensus"){
   } else if(theory == "Gepner"){
     
     if(node_mapping == "consensus"){
-      consensus <- read.csv("../abstraction/consensus_Gepner.csv") %>% filter(!consensus == "")
+      consensus <- read.csv("../abstraction/consensus_Gepner.csv") %>% filter(!consensus == "") %>% 
+        select(original, consensus) %>% 
+        distinct()
       node_map <- consensus$consensus
       names(node_map) <- consensus$original
     } else if(node_mapping == "JE"){
@@ -457,6 +463,20 @@ reach_pairs <- function(R, nodes) {
   paste(rownames(sub)[idx[, 1]], colnames(sub)[idx[, 2]], sep = " -> ")
 }
 
+# 
+build_reachability_graph <- function(edges){
+  
+  mat <- build_reachability(edges)
+  idx <- which(mat, arr.ind = TRUE)
+  edges <- data.frame(
+    from = rownames(mat)[idx[, "row"]],
+    to   = colnames(mat)[idx[, "col"]],
+    stringsAsFactors = FALSE
+  )
+  return(edges)
+}
+
+
 ## ---- 3. compare two graphs on their shared nodes ----
 ## edges1 and edges 2 formatted as (from, to) df
 compare_graphs <- function(edges1, edges2, name1 = "G1", name2 = "G2") {
@@ -618,6 +638,61 @@ drop_error_edges <- function(g, edges){
   g <- g %>% filter(!paste0(from, "->", to) %in% edges_to_drop)
   return(g)
 }
+
+add_omitted_edges <- function(g, edges){
+  # edges should be from commission errors
+  if(class(g) == "igraph"){
+    g <- as_data_frame(g)
+  } # allows for flexible input of either igraph or df 
+  existing_nodes <- unique(c(g$from, g$to))
+  
+  edges_to_add <- edges %>%
+    filter(from %in% existing_nodes & to %in% existing_nodes)
+  
+  existing_edges <- paste0(g$from, "->", g$to)
+  edges_to_add <- edges_to_add %>%
+    filter(!paste0(from, "->", to) %in% existing_edges)
+  
+  g <- bind_rows(g, edges_to_add)
+  return(g)
+}
+
+
+
+# identify redundant nodes within graphs
+node_redundancy <- function(node_map, j, s, gemini, gpt, theory){
+  
+  encoders <- c("j", "s", "Gemini", "GPT")
+  
+  node_map_where <- as.data.frame(node_map)
+  node_map_where$OG <- names(node_map)
+  rownames(node_map_where) <- NULL
+  
+  node_map_where$j <- ifelse(node_map_where$OG %in% unique(c(j$from, j$to)), T, F)
+  node_map_where$s <- ifelse(node_map_where$OG %in% unique(c(s$from, s$to)), T, F)
+  node_map_where$Gemini <- ifelse(node_map_where$OG %in% unique(c(gemini$from, gemini$to)), T, F)
+  node_map_where$GPT <- ifelse(node_map_where$OG %in% unique(c(gpt$from, gpt$to)), T, F)
+  
+  group_counts <- node_map_where %>%
+    group_by(node_map) %>%
+    summarise(across(all_of(encoders), sum), .groups = "drop") %>% 
+    mutate(across(all_of(encoders), ~ pmax(.x - 1, 0))) %>%
+    summarise(across(all_of(encoders), sum)) %>%
+    tidyr::pivot_longer(everything(), names_to = "encoder", values_to = "n_redundant") %>% 
+    mutate(theory = theory)
+  
+  return(group_counts)
+} 
+
+# Has path
+has_path <- function(edges, path) {
+  all(mapply(
+    \(x, y) any(edges$from == x & edges$to == y),
+    path[-length(path)],
+    path[-1]
+  ))
+}
+
 
 
 
